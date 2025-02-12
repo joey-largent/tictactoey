@@ -9,8 +9,17 @@
 </head>
 <body>
     <h1>Tic-Tac-Toe</h1>
-    <div id="board"></div>
-    <p id="status">Player X's turn</p>
-    <button id="reset">Reset Game</button>
+
+    <div id="player-setup">
+        <input type="text" id="player1-name" placeholder="Player 1 Name (O)">
+        <input type="text" id="player2-name" placeholder="Player 2 Name (X)">
+        <button id="start-game">Start Game</button>
+    </div>
+
+    <div id="game-container" style="display: none;">
+        <div id="board"></div>
+        <p id="status">Enter names and start the game!</p>
+        <button id="reset">Reset Game</button>
+    </div>
 </body>
 </html>
