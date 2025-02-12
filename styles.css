@@ -1,5 +1,5 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Silkscreen', sans-serif;
     text-align: center;
 }
 
@@ -28,9 +28,14 @@ body {
     background-color: #f0f0f0;
 }
 
+input {
+    font-family: 'Silkscreen', sans-serif;
+}
+
 button {
     margin-top: 20px;
     padding: 10px;
     font-size: 1rem;
     cursor: pointer;
+    font-family: 'Silkscreen', sans-serif;
 }
