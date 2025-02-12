@@ -30,9 +30,6 @@ const Player = (name, mark) => {
     return { name, mark };
 };
 
-const player1 = Player('Marina', 'O');
-const player2 = Player('Daniel', 'X');
-
 const GameController = (() => {
     let player1 = Player("Player 1", "O");
     let player2 = Player("Player 2", "X");
@@ -44,7 +41,11 @@ const GameController = (() => {
         currentPlayer = player1;
     }
 
+    let gameOver = false;
+
     function playRound(index) {
+        if (gameOver) return;
+
         const player = getCurrentPlayer();
         const moveSuccessful = Gameboard.placeMarker(index, player.mark);
         if (!moveSuccessful) {
@@ -53,11 +54,17 @@ const GameController = (() => {
 
         const winner = checkWinner();
         if (winner) {
-            return winner === "It's a tie!" ? winner : `${player.name} wins!`;
+            gameOver = true;
+            if (winner === "Berabere!") {
+                return winner;
+            } else {
+                return `${winner} kazandı!`;
+            }
+            
         }
 
         switchPlayer();
-        return `Next turn: ${getCurrentPlayer().name}`;
+        return `Sıradaki Oyuncu: ${getCurrentPlayer().name}`;
     }
 
     function switchPlayer() {
@@ -84,7 +91,7 @@ const GameController = (() => {
         }
 
         if (!checkStatus.includes('')) {
-            return "It's a tie!";
+            return "Berabere!";
         }
 
         return null;
@@ -93,6 +100,7 @@ const GameController = (() => {
     function resetGame() {
         Gameboard.reset();
         currentPlayer = player1;
+        gameOver = false;
     }
 
     return { playRound, getCurrentPlayer, checkWinner, resetGame, setPlayerNames };
@@ -132,8 +140,8 @@ function handleCellClick(cell) {
 
 function handleStartGame() {
     
-    const player1Name = document.querySelector('#player1-name').value || 'Player 1';
-    const player2Name = document.querySelector('#player2-name').value || 'Player 2';
+    const player1Name = document.querySelector('#player1-name').value || 'Oyuncu 1';
+    const player2Name = document.querySelector('#player2-name').value || 'Oyuncu 2';
 
     GameController.setPlayerNames(player1Name, player2Name);
     document.querySelector('#game-container').style.display = 'block';
@@ -155,9 +163,13 @@ function updateBoard() {
     const elementStatus = document.querySelector('#status');
 
     if (winner) {
-        elementStatus.textContent = winner === "It's a tie!" ? winner : `${winner} wins!`;
+        if (winner === "Berabere!") {
+            elementStatus.textContent = "Berabere!";
+        } else {
+            elementStatus.textContent = `${winner} kazandı!`;
+        }
     } else {
-        elementStatus.textContent = `Next Turn: ${GameController.getCurrentPlayer().name}`;
+        elementStatus.textContent = `Sıradaki Oyuncu: ${GameController.getCurrentPlayer().name}`;
     }
 }
 
