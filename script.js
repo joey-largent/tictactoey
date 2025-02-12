@@ -144,12 +144,18 @@ function handleStartGame() {
     const player2Name = document.querySelector('#player2-name').value || 'Oyuncu 2';
 
     GameController.setPlayerNames(player1Name, player2Name);
+
+    document.querySelector('#player-setup').style.display = 'none';
     document.querySelector('#game-container').style.display = 'block';
     updateBoard();
 }
 
 function handleReset() {
     GameController.resetGame();
+
+    document.querySelector('#player-setup').style.display = 'block';
+    document.querySelector('#game-container').style.display = 'none';
+
     updateBoard();
 }
 
